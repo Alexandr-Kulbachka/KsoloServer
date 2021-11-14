@@ -14,7 +14,12 @@
     "typescript": "^3.3.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && node dist/app.js",
+    "postinstall": "npm install --global typescript@latest",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku dev",
+    "debug": "node --inspect-brk dist/app.js"
   },
   "author": "",
   "license": "ISC"
