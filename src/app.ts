@@ -1,5 +1,6 @@
+require('dotenv').config();
 import express from 'express';
-// import DbMediator from './mediators/db_mediator/db_mediator';
+import DbMediator from './mediators/db_mediator/db_mediator';
 import * as https from 'https';
 import * as WebSocket from 'ws';
 import RequestMessage from './models/message_models/message_models/request_message_model';
@@ -11,14 +12,16 @@ import LogService from './services/log_service/log_service';
 const app = express();
 
 let port: number = Number(process.env.PORT) || 3000;
-const portListening = app.listen(port)
+const server = app.listen(port, function() {
+    LogService.printLog(`Ready on port ${port}`);
+});
 
-const anonimRequests = [
+const anonymousRequests = [
     '/create_account'
 ];
 
-// DbMediator.initConnection().then(
-//     result => {
+DbMediator.initConnection().then(
+    result => {
         app.get('/', (request, response) => {
             response.send('OK');
         });
@@ -40,11 +43,7 @@ const anonimRequests = [
         //     response.send(result.getResponceText());
         // });
 
-        const server = portListening.on('listening', () => {
-            LogService.printLog(`Ready on port ${port}`);
-        });
-
-        portListening.on('error', function (err) {
+        server.on('error', function (err) {
             if (err) {
                 LogService.printLog(JSON.stringify(err));
             }
@@ -103,6 +102,6 @@ const anonimRequests = [
             }
         });
 
-    // },
-//     error => { LogService.printLog(error) }
-// );
+    },
+    error => { LogService.printLog(error) }
+);
