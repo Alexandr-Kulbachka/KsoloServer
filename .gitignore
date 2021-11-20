@@ -48,7 +48,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-#SSL files
-*.key
-*.pem

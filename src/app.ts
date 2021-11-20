@@ -1,8 +1,7 @@
 require('dotenv').config();
-const fs = require('fs');
 import express from 'express';
 import DbMediator from './mediators/db_mediator/db_mediator';
-import * as https from 'https';
+import * as http from 'http';
 import * as WebSocket from 'ws';
 import RequestMessage from './models/message_models/message_models/request_message_model';
 import ResponceMessage from './models/message_models/message_models/responce_message_model';
@@ -14,12 +13,7 @@ const app = express();
 
 let port: number = Number(process.env.PORT) || 3000;
 
-const options = {
-    key: fs.readFileSync('src/sert/rootCA.key'),
-    cert: fs.readFileSync('src/sert/rootCA.pem')
-};
-
-const server = https.createServer(options, app).listen(port);
+const server = http.createServer(app).listen(port);
 
 //const server = app.listen(port);
 
