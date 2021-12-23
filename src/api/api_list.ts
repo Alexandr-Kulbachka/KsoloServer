@@ -1,4 +1,4 @@
- import ResponceMessage from '../models/message_models/message_models/responce_message_model';
+ import ResponceMessage from '../models/message_models/responce_message_model';
 // import AccountService from '../services/account_service/account_service';
 // import EventService from '../services/event_service/event_service';
 // import ParticipantsService from '../services/event_service/participants_service';
@@ -11,7 +11,14 @@ var apiList: { [elementType: string]: (parameters: Map<string, any>) => Promise<
 
 async function callApi(apiName: string, parameters: Map<string, any>): Promise<ResponceMessage> {
     console.log(apiList[apiName]);
-    return await apiList[apiName](parameters);
+    if (apiName in apiList) {
+        return await apiList[apiName](parameters);
+    } else {
+        return new ResponceMessage(
+            apiName,
+            {},
+            ["Invalid or unsupported request"])
+    }
 }
 
 export default callApi

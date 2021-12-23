@@ -194,21 +194,17 @@ class DbMediator {
         let arrayCondition: Array<any> = [];
         for (let [key, value] of Values) {
             if (typeof(value) === 'string'){
-                console.log("Ваши данные для обновления: ", key, value);
                 arrayValues.push(`${key} = '${value}'`);
             } else {
-                console.log("Ваши данные для обновления: ", key, value);
                 arrayValues.push(`${key} = ${value}`);
             }
         };
         if (typeof(checkCondition) === 'string'){
             for (let [key, value] of Condition) {
-                console.log("Ваше данные для условия обновления: ",key, value);
                 arrayCondition.push(`${key} = '${value}'`);
             };
         } else {
             for (let [key, value] of Condition) {
-                console.log("Ваше данные для условия обновления: ",key, value);
                 arrayCondition.push(`${key} = ${value}`);
             };
         }
